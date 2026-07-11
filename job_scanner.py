@@ -63,9 +63,21 @@ def is_role_match(title, desc):
     return any(k in blob for k in ROLE_KEYWORDS)
 
 
+INDIA_CITIES = [
+    "india", "bangalore", "bengaluru", "mumbai", "delhi", "hyderabad", "pune",
+    "chennai", "noida", "gurugram", "gurgaon", "ahmedabad", "kolkata",
+    "kochi", "jaipur", "indore",
+]
+
+
 def is_india(text):
+    import re
     t = (text or "").lower()
-    return "india" in t
+    if any(c in t for c in INDIA_CITIES):
+        return True
+    if re.search(r"\(in\)|,\s*in\b", t):
+        return True
+    return False
 
 
 def extract_contacts(text):
@@ -211,9 +223,12 @@ def main():
     for j in all_jobs:
         if j["id"] in seen:
             continue
+        combined = f"{j['title']} {j['location']} {j['description']}"
+        if not is_india(combined):
+            continue  # India-only target - skip everything else
         seen.add(j["id"])
         j["match"] = score_match(f"{j['title']} {j['description']}")
-        j["india"] = is_india(f"{j['title']} {j['location']} {j['description']}")
+        j["india"] = True
         j["emails"], j["phones"] = extract_contacts(j["description"])
         new_jobs.append(j)
 
