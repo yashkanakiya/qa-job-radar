@@ -28,7 +28,7 @@ In your repo: **Settings → Secrets and variables → Actions → New repositor
 |---|---|
 | `EMAIL_ADDRESS` | The Gmail address that will send the digest (can be your own) |
 | `EMAIL_APP_PASSWORD` | The 16-character app password from step 2 |
-| `EMAIL_TO` | Where you want digests delivered — e.g. `yashkanakiya281297@gmail.com` |
+| `EMAIL_TO` | Where you want digests delivered — e.g. `yashjobseek@gmail.com` |
 
 ### 4. Turn it on
 - Go to the **Actions** tab of your repo → you'll see "QA Job Radar Scan" → click **Enable workflow** if prompted.
